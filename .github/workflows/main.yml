@@ -34,5 +34,5 @@ jobs:
       - name: Push Frontend Docker Image
         run: docker push hanna877/nextjs-frontend:latest
 
-       - name: Push Database Docker Image
+      - name: Push Database Docker Image
         run: docker push hanna877/mysql-sakila:latest
