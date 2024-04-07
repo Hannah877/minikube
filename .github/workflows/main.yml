@@ -7,6 +7,7 @@ on:
     branches: [main]
 
 jobs:
+  # Assignment04-Builder: build images and push to Docker Hub
   build:
     runs-on: ubuntu-latest
     steps:
