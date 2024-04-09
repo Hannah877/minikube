@@ -43,7 +43,7 @@ jobs:
         run: kubectl apply -f db/
         
       - name: deploy fe
-        run: kubectl apply -f fe-deployment.yaml
+        run: kubectl apply -f frontend/
 
       - name: deploy be
-        run: kubectl apply -f be-deployment.yaml
+        run: kubectl apply -f backend/
