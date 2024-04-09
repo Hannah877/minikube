@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: fastapi
-          image: hanna877/fastapi:latest
+          image: process.env.DOCKER_USERNAME/fastapi:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
