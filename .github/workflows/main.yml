@@ -37,3 +37,10 @@ jobs:
 
       - name: Push Database Docker Image
         run: docker push hanna877/mysql-sakila:latest
+        
+      # Assignment04-Deployment
+      - name: Deploy
+        run: kubectl apply -f db-deployment.yaml
+             kubectl apply -f fe-deployment.yaml
+             kubectl apply -f be-deployment.yaml
+             kubectl apply -f kubernetes/
