@@ -40,7 +40,7 @@ jobs:
         
       # Assignment04-Deployment
       - name: Deploy database
-        run: kubectl apply -f db/db-deployment.yaml
+        run: kubectl apply -f db/
         
       - name: deploy fe
         run: kubectl apply -f fe-deployment.yaml
