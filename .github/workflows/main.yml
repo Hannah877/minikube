@@ -42,8 +42,8 @@ jobs:
       - name: Deploy database
         run: kubectl apply -f db-deployment.yaml
         
-        name: Deploy frontend
+      - name: deploy fe
         run: kubectl apply -f fe-deployment.yaml
 
-        name: backend
+      - name: deploy be
         run: kubectl apply -f be-deployment.yaml
