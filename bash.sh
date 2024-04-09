@@ -1,17 +1,26 @@
 #!/bin/bash
 
+set -a
+source .env
+set +a 
+
 # create 3 nodes
 minikube start --nodes 3
 
+# Deploy the app
+kubectl apply -f db/db-deployment.yaml
+kubectl apply -f frontend/fe-deployment.yaml
+kubectl apply -f backend/be-deployment.yaml
+
 # Build Docker Images for Backend/Frontend/Database
-docker build -t hanna877/fastapi:latest -f backend/Dockerfile ./backend
-docker build -t hanna877/nextjs-frontend:latest -f frontend/Dockerfile ./frontend
-docker build -t hanna877/mysql-sakila:latest -f db/Dockerfile ./db
+docker build -t "$DOCKER_USERNAME/fastapi:latest" -f backend/Dockerfile ./backend
+docker build -t "$DOCKER_USERNAME/nextjs-frontend:latest" -f frontend/Dockerfile ./frontend
+docker build -t "$DOCKER_USERNAME/mysql-sakila:latest" -f db/Dockerfile ./db
 
 # Push Docker Images to Docker Hub
-docker push hanna877/fastapi:latest
-docker push hanna877/nextjs-frontend:latest
-docker push hanna877/mysql-sakila:latest
+docker push "$DOCKER_USERNAME/fastapi:latest"
+docker push "$DOCKER_USERNAME/nextjs-frontend:latest"
+docker push "$DOCKER_USERNAME/mysql-sakila:latest"
 
 # Deploy the app
 kubectl apply -f db/db-deployment.yaml
@@ -19,7 +28,7 @@ kubectl apply -f frontend/fe-deployment.yaml
 kubectl apply -f backend/be-deployment.yaml
 
 # forward backend service to 8080
-kubectl port-forward svc/fastapi 8080:8000 &
+kubectl port-forward svc/"$FASTAPI_SERVICE_NAME" 8080:"$FASTAPI_CONTAINER_PORT" &
 
 # run the web app
-minikube service nextjs-frontend-service
+minikube service "$NEXTJS_SERVICE_NAME-service"
