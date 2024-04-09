@@ -40,7 +40,7 @@ jobs:
         
       # Assignment04-Deployment
       - name: Deploy database
-        run: kubectl apply -f db/
+        run: kubectl apply -f hanna877/db/db-deployment.yaml
         
       - name: deploy fe
         run: kubectl apply -f frontend/
