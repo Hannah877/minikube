@@ -22,11 +22,6 @@ envsubst < db/db-deployment.yaml | kubectl apply -f -
 envsubst < frontend/fe-deployment.yaml | kubectl apply -f -
 envsubst < backend/be-deployment.yaml | kubectl apply -f -
 
-while ! kubectl get svc/"$FASTAPI_SERVICE_NAME" &> /dev/null; do
-    echo "Waiting for service $FASTAPI_SERVICE_NAME to start..."
-    sleep 5
-done
-
 # forward backend service to 8080
 kubectl port-forward svc/fastapi 8080:8000 &
 
