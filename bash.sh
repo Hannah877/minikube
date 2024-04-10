@@ -5,7 +5,7 @@ source environment.env
 set +a 
 
 # create 3 nodes
-# minikube start --nodes 3
+minikube start --nodes 3
 
 # Build Docker Images for Backend/Frontend/Database
 docker build -t "$DOCKER_USERNAME/fastapi:latest" -f backend/Dockerfile ./backend
@@ -22,8 +22,13 @@ envsubst < db/db-deployment.yaml | kubectl apply -f -
 envsubst < frontend/fe-deployment.yaml | kubectl apply -f -
 envsubst < backend/be-deployment.yaml | kubectl apply -f -
 
+while ! kubectl get svc/"$FASTAPI_SERVICE_NAME" &> /dev/null; do
+    echo "Waiting for service $FASTAPI_SERVICE_NAME to start..."
+    sleep 5
+done
+
 # forward backend service to 8080
-kubectl port-forward svc/"$FASTAPI_SERVICE_NAME" "$FASTAPI_SERVICE_PORT":"$FASTAPI_CONTAINER_PORT" &
+kubectl port-forward svc/fastapi 8080:8000 &
 
 # run the web app
-minikube service "$NEXTJS_SERVICE_NAME-service"
+minikube service nextjs-frontend-service
