@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: process.env.DOCKER_USERNAME/mysql-sakila:latest
+          image: ${DOCKER_USERNAME}/mysql-sakila:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3306

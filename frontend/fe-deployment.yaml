@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nextjs-frontend
-          image: hanna877/nextjs-frontend:latest
+          image: ${DOCKER_USERNAME}/nextjs-frontend:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
